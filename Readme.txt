@@ -3,7 +3,7 @@
 // SYSCLK:DIVCLK/12 = 12Mhz
 // TIM0CLK:SYSCLK/12 = 1Mhz   16Bit
 // TIM1CLK:SYSCLK/12 = 1Mhz   16Bit 
-// TIM2CLK:SYSCLK/12 = 1Mhz   16Bit
+
 
 void SendByte(uint8_t Byte){
 	SBUF1 = Byte;
@@ -67,9 +67,6 @@ display_string(3,1,s);
 sprintf(s,"Max Cur:%02.2fA",a20);
 display_string(5,1,s);
 
-//#include <Ctype.h>
 #include "Limits.h"
-//#include "intrins.h" 
-
 2016年11月22日11:11:23
 1. 修订一个潜在的数据溢出导致的不稳定问题.TickCnt
