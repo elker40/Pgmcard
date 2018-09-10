@@ -1,0 +1,133 @@
+C51 COMPILER V9.56.0.0   P_RESFONT                                                         10/21/2016 15:21:26 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE P_RESFONT
+OBJECT MODULE PLACED IN .\Objects\P_ResFont.obj
+COMPILER INVOKED BY: D:\MyProKits\MucKits\Keil\C51\BIN\C51.EXE ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c LARGE OPTIM
+                    -IZE(8,SPEED) BROWSE INCDIR(..\..\SrcCode\Inc\Bsp;..\..\SrcCode\Inc\Logic;..\..\SrcCode\Inc\Middle;..\..\SrcCode\Inc\Midd
+                    -le\Gui\Font;..\..\SdkTool\Si8051Base;..\..\SdkTool\EFM8UB2\Inc;..\..\SdkTool\EFM8UB2\Perip\Inc;..\..\SdkTool\EFM8UB2\Xpr
+                    -ess\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\P_ResFont.lst) TABS(2) OBJECT(.\Objects\P_ResFont.obj)
+
+line level    source
+
+   1          #include "P_ResFont.h"
+   2          
+   3          InfoDef Info5x4 = {
+   4            .Hight = 5,                   // 字体高度
+*** ERROR C141 IN LINE 4 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+   5            .Interval = 0,                // 字符之间空隙
+   6            .WidthHalf = 4,               // 半宽字体宽度
+   7            .OffsetHalf = 0,              // 半宽字体垂直偏移  
+   8            .WidthFull = 4,               // 半宽字体宽度
+   9            .OffsetFull = 0,              // 半宽字体垂直偏移    
+  10          };
+  11          MaskSetDef MaskSet5x4 = {
+  12            .MaskHalf.MaskLayout = LSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+*** ERROR C141 IN LINE 12 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  13            .MaskHalf.MaskOffset = 4,        // 索引字膜数据偏移(无编码索引) 
+  14            .MaskHalf.PtrMaskDate = ASCII,        // 指向索引字膜数据 // 这个参数配置是错的
+  15            .MaskHalf.MaskSumTotal = 255,   
+  16           
+  17            .MaskFull.MaskLayout = LSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+  18            .MaskFull.MaskOffset = 4,            // 索引字膜数据偏移(包含两字节索引) 
+  19            .MaskFull.PtrMaskDate = ASCII,       // 指向索引字膜数据  // 这个参数配置是错的
+  20            .MaskFull.MaskSumTotal = HZNUM,  
+  21          };
+  22          FontDef Font5x4 = {
+  23            .Info = &Info5x4,
+*** ERROR C141 IN LINE 23 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  24            .Mask = &MaskSet5x4,
+  25          };
+  26          
+  27          InfoDef Info8x6 = {
+  28            .Hight = 8,                  // 字体高度
+*** ERROR C141 IN LINE 28 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  29            .Interval = 0,               // 字符之间空隙
+  30            .WidthHalf = 6,              // 半宽字体宽度
+  31            .OffsetHalf = 0,             // 半宽字体垂直偏移  
+  32            .WidthFull = 6,              // 半宽字体宽度
+  33            .OffsetFull = 0,             // 半宽字体垂直偏移    
+  34          };
+  35          MaskSetDef MaskSet8x6 = {
+  36            .MaskHalf.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+*** ERROR C141 IN LINE 36 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  37            .MaskHalf.MaskOffset = 6,             // 索引字膜数据偏移(无编码索引) 
+  38            .MaskHalf.PtrMaskDate = ASCII,        // 指向索引字膜数据
+  39            .MaskHalf.MaskSumTotal = 255,   
+  40            
+  41            .MaskFull.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+  42            .MaskFull.MaskOffset = 6,            // 索引字膜数据偏移(包含两字节索引) 
+  43            .MaskFull.PtrMaskDate = ASCII,          // 指向索引字膜数据  
+  44            .MaskFull.MaskSumTotal = 255,  
+  45          };
+  46          FontDef Font8x6 = {
+  47            .Info = &Info8x6,
+C51 COMPILER V9.56.0.0   P_RESFONT                                                         10/21/2016 15:21:26 PAGE 2   
+
+*** ERROR C141 IN LINE 47 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  48            .Mask = &MaskSet8x6,
+  49          };
+  50          
+  51          InfoDef Info16x12 = {
+  52            .Hight = 16,                  // 字体高度
+*** ERROR C141 IN LINE 52 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  53            .Interval = 0,                // 字符之间空隙
+  54            .WidthHalf = 6,               // 半宽字体宽度
+  55            .OffsetHalf = 4,              // 半宽字体垂直偏移  
+  56            .WidthFull = 12,              // 半宽字体宽度
+  57            .OffsetFull = 1,              // 半宽字体垂直偏移    
+  58          };
+  59          MaskSetDef MaskSet16x12 = {
+  60            .MaskHalf.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON, 
+*** ERROR C141 IN LINE 60 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  61            .MaskHalf.MaskOffset = 6,             // 索引字膜数据偏移(无编码索引) 
+  62            .MaskHalf.PtrMaskDate = ASCII,        // 指向索引字膜数据
+  63            .MaskHalf.MaskSumTotal = 255,   
+  64          
+  65            .MaskFull.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+  66            .MaskFull.MaskOffset = 26,            // 索引字膜数据偏移(包含两字节索引) 
+  67            .MaskFull.PtrMaskDate = HZK,          // 指向索引字膜数据  
+  68            .MaskFull.MaskSumTotal = HZNUM  
+  69          };
+  70          FontDef Font16x12 = {
+  71            .Info = &Info16x12,
+*** ERROR C141 IN LINE 71 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  72            .Mask = &MaskSet16x12,
+  73          };
+  74          
+  75          InfoDef InfoAscII16x8 = {
+  76            .Hight = 16,                  // 字体高度
+*** ERROR C141 IN LINE 76 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  77            .Interval = 0,                // 字符之间空隙
+  78            .WidthHalf = 8,               // 半宽字体宽度
+  79            .OffsetHalf = 0,              // 半宽字体垂直偏移  
+  80            .WidthFull = 8,               // 半宽字体宽度
+  81            .OffsetFull = 0,              // 半宽字体垂直偏移    
+  82          };
+  83          MaskSetDef MaskSetAscII16x8 = {
+  84            .MaskHalf.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON, 
+*** ERROR C141 IN LINE 84 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  85            .MaskHalf.MaskOffset = 16,             // 索引字膜数据偏移(无编码索引) 
+  86            .MaskHalf.PtrMaskDate = (unsigned char *)ASCII16x8,        // 指向索引字膜数据
+  87            .MaskHalf.MaskSumTotal = 255,   
+  88          
+  89            .MaskFull.MaskLayout = MSB_ONE_ROW_LIGHT_RIGHT_UP_DWON,           
+  90            .MaskFull.MaskOffset = 16,            // 索引字膜数据偏移(包含两字节索引) 
+  91            .MaskFull.PtrMaskDate = (unsigned char *)ASCII16x8,          // 指向索引字膜数据  
+  92            .MaskFull.MaskSumTotal = 255  
+  93          };
+  94          FontDef FontASCII16x8 = {
+  95            .Info = &InfoAscII16x8,
+*** ERROR C141 IN LINE 95 OF ..\..\SrcCode\Src\Middle\Gui\Font\P_ResFont.c: syntax error near '.'
+  96            .Mask = &MaskSetAscII16x8,
+  97          };
+  98          
+  99          FontDef *pStFont = &Font16x12;
+ 100          FontDef *pStMiniFont = &Font5x4;
+ 101          
+ 102          FontDef *pFont8x6 = &Font8x6; 
+C51 COMPILER V9.56.0.0   P_RESFONT                                                         10/21/2016 15:21:26 PAGE 3   
+
+ 103          FontDef *pFontASCII16x8 = &FontASCII16x8;
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  12 ERROR(S)

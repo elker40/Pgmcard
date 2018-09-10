@@ -1,0 +1,75 @@
+A51 MACRO ASSEMBLER  A_APPINIT                                                            09/10/2018 09:40:57 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\A_AppInit.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ..\..\SrcCode\Bsp\Core\A_AppInit.a SET(LARGE) DEBUG PRINT(.\Listings\A_
+                      AppInit.lst) XREF OBJECT(.\Objects\A_AppInit.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;-------------------------------------------------------------------------------
+
+                       2     ; The NOMOD51 directive suppresses pre-definition of 8051 SFR names. 
+
+                       3     ; This directive must be used when a customer-specific SFR definition file 
+
+                       4     ; is included.
+
+                       5     ;-------------------------------------------------------------------------------
+
+                       6     $nomod51 
+
+                       7     ;-------------------------------------------------------------------------------
+
+                       8     ?C_APPINIT      SEGMENT   CODE
+
+                       9     ;-------------------------------------------------------------------------------
+
+                      10                     NAME    ?A_APPINIT
+
+                      11                     PUBLIC  ?A_APPINIT
+
+                      12     ;-------------------------------------------------------------------------------
+
+                      13     ; 中断地址映射 
+
+                      14     ;-------------------------------------------------------------------------------           
+                                  
+
+----                  15                     CSEG    AT  0x4000
+
+4000 00               16                     NOP               
+
+4001 00               17                     NOP
+
+4002 00               18                     NOP
+
+                      19                                     
+
+----                  20                     RSEG    ?C_APPINIT 
+
+0000 00               21     ?A_APPINIT:     NOP  
+
+                      22                       
+
+                      23                     END
+
+                              
+
+A51 MACRO ASSEMBLER  A_APPINIT                                                            09/10/2018 09:40:57 PAGE     2
+
+XREF SYMBOL TABLE LISTING
+---- ------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES / REFERENCES
+
+?A_APPINIT . . . .  C ADDR   0000H   R   SEG=?C_APPINIT   10 11 21#
+?C_APPINIT . . . .  C SEG    0001H       REL=UNIT   8# 20
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

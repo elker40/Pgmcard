@@ -1,0 +1,16 @@
+C51 COMPILER V9.52.0.0   DEBUG                                                             12/07/2016 12:01:36 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DEBUG
+OBJECT MODULE PLACED IN .\Objects\Debug.obj
+COMPILER INVOKED BY: D:\MyProKits\MucKits\Keil_C51_Rev952\C51\BIN\C51.EXE ..\..\SrcCode\Logic\Core\Debug.c LARGE OMF2 OP
+                    -TIMIZE(0,SPEED) BROWSE INCDIR(..\..\SrcCode\Bsp\Inc;..\..\SrcCode\Logic\Inc;..\..\SrcCode\Middle\Gui\Inc;..\..\SrcCode\M
+                    -iddle\Input\Inc;..\..\SdkTool\Si8051Base;..\..\SdkTool\EFM8UB2\Inc;..\..\SdkTool\EFM8UB2\Perip\Inc;..\..\SdkTool\EFM8UB2
+                    -\Xpress\Inc) DEBUG CODE LISTINCLUDE SYMBOLS PRINT(.\Listings\Debug.lst) TABS(2) PREPRINT(.\Listings\Debug.i) OBJECT(.\Ob
+                    -jects\Debug.obj)
+
+line level    source
+
+*** ERROR C318 OF ..\..\SrcCode\Logic\Core\Debug.c: can't open file '..\..\SrcCode\Logic\Core\Debug.c'
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

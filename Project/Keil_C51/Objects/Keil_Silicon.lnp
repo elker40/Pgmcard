@@ -1,0 +1,55 @@
+".\Objects\InitDevice.obj",
+".\Objects\A_StartUp.obj",
+".\Objects\A_AppInit.obj",
+".\Objects\Main.obj",
+".\Objects\Global.obj",
+".\Objects\Esc.obj",
+".\Objects\Stablizer.obj",
+".\Objects\LipoCells.obj",
+".\Objects\Sterring.obj",
+".\Objects\PageRes.obj",
+".\Objects\LcdBsae.obj",
+".\Objects\LcdDraw.obj",
+".\Objects\Page.obj",
+".\Objects\PageEsc.obj",
+".\Objects\PageEsc1th.obj",
+".\Objects\PageEsc2th.obj",
+".\Objects\PageEsc3th.obj",
+".\Objects\PageLipoCells.obj",
+".\Objects\PageStabilizer.obj",
+".\Objects\PageStabilizerBuild.obj",
+".\Objects\PageStabilizerMode.obj",
+".\Objects\PageStabilizerPitchGain.obj",
+".\Objects\PageStabilizerRollGain.obj",
+".\Objects\PageStabilizerYawGain.obj",
+".\Objects\PageSteering.obj",
+".\Objects\InputBtn.obj",
+".\Objects\InputBtnBsp.obj" 
+TO ".\Objects\Keil_Silicon" 
+PRINT(".\Listings\Keil_Silicon.m51") IXREF 
+RAMSIZE(256) 
+DISABLEWARNING (16,57) 
+OVERLAY( ?PR?_PAGEESCPARAM?PAGEESC   ! *,
+			?PR?_PAGEESC1TH?PAGEESC1TH 	! *,
+            ?PR?_PAGEESC1THRST?PAGEESC  ! *,
+            
+			?PR?_PAGEESC2TH?PAGEESC2TH 	! *,
+            ?PR?_PAGEESC2THRST?PAGEESC  ! *,
+            
+			?PR?_PAGEESC3TH?PAGEESC3TH 	! *,
+            ?PR?_PAGEESC3THRST?PAGEESC  ! *,
+            ?PR?_PAGEESC3THABOUT?PAGEESC  ! *,
+            
+            ?PR?PARAMESCDATPROCCESS?PAGEESC  ! *,
+            ?PR?_PAGESTABLIZERBUILD?PAGESTABILIZERBUILD ! *,
+                   
+            ?PR?_PAGEAUTOFLY?PAGESTABILIZER  ! *,
+            ?PR?_PAGEAUTOFLYMODE?PAGESTABILIZERMODE  ! *,
+            ?PR?_PAGEAUTOFLYPITCHGAIN?PAGESTABILIZERPITCHGAIN  ! *,
+            ?PR?_PAGEAUTOFLYROLLGAIN?PAGESTABILIZERROLLGAIN  ! *,
+            ?PR?_PAGEAUTOFLYYAWGAIN?PAGESTABILIZERYAWGAIN  ! *,           
+            
+			?PR?_PAGEBATVOLT?PAGELIPOCELLS 	! *
+)
+CODE( 0x4000-0xF9FF )
+XDATA( 0x0000-0x0FFF )

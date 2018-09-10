@@ -1,0 +1,241 @@
+C51 COMPILER V9.56.0.0   MAINAPP                                                           10/25/2016 09:42:09 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAINAPP
+OBJECT MODULE PLACED IN .\Objects\MainApp.obj
+COMPILER INVOKED BY: D:\MyProKits\MucKits\Keil\C51\BIN\C51.EXE ..\..\SrcCode\Logic\Core\MainApp.c LARGE OPTIMIZE(8,SPEED
+                    -) BROWSE INCDIR(..\..\SrcCode\Bsp\Inc;..\..\SrcCode\Logic\Inc;..\..\SrcCode\Middle\Gui\Inc;..\..\SrcCode\Middle\Input\In
+                    -c;..\..\SdkTool\Si8051Base;..\..\SdkTool\EFM8UB2\Inc;..\..\SdkTool\EFM8UB2\Perip\Inc;..\..\SdkTool\EFM8UB2\Xpress\Inc) D
+                    -EBUG OBJECTEXTEND SYMBOLS PRINT(.\Listings\MainApp.lst) TABS(2) OBJECT(.\Objects\MainApp.obj)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          // Includes
+   3          //-----------------------------------------------------------------------------
+   4          #include <SI_EFM8UB2_Register_Enums.h>                  // SFR declarations
+   5          #include "InitDevice.h"
+   6          #include "Lcd.h"
+*** WARNING C318 IN LINE 6 OF ..\..\SrcCode\Logic\Core\MainApp.c: can't open file 'Lcd.h'
+   7          #include "page.h"
+   8          #include "PageMenu.h"
+   9          // $[Generated Includes]
+  10          // [Generated Includes]$
+  11          
+  12          #define  DEBUG  1
+  13          #define  DEBUG_TX  0
+  14          SI_SEGMENT_VARIABLE( UART_TX_Buffer[UART_BUFFER_SIZE] ,uint8_t,SI_SEG_IDATA);
+*** ERROR C202 IN LINE 14 OF ..\..\SrcCode\Logic\Core\MainApp.c: 'UART_BUFFER_SIZE': undefined identifier
+*** ERROR C136 IN LINE 14 OF ..\..\SrcCode\Logic\Core\MainApp.c: invalid dimension size: [0]
+  15          SI_SEGMENT_VARIABLE( UART_RX_Buffer[UART_BUFFER_SIZE] ,uint8_t,SI_SEG_IDATA) = {0};
+*** ERROR C202 IN LINE 15 OF ..\..\SrcCode\Logic\Core\MainApp.c: 'UART_BUFFER_SIZE': undefined identifier
+*** ERROR C136 IN LINE 15 OF ..\..\SrcCode\Logic\Core\MainApp.c: invalid dimension size: [0]
+  16          SI_SEGMENT_VARIABLE( UART_Data_Handler_Flag ,uint8_t,SI_SEG_XDATA);
+  17          
+  18          SI_SEGMENT_VARIABLE( PageAlertText ,char *,SI_SEG_IDATA);
+  19          SI_SEGMENT_VARIABLE( PageAlertDelay ,uint32_t,SI_SEG_IDATA);
+  20          SI_SEGMENT_VARIABLE( PageAlertMsg ,uint8_t,SI_SEG_IDATA);
+  21          
+  22          SI_SEGMENT_VARIABLE( timer_uart ,uint16_t,SI_SEG_IDATA);
+  23          void Delay_us(uint16_t count);
+  24          void UART1_Write_Encode(void);
+  25          void UART1_Read_Encode(void);
+  26          void UART1_Write_Buffer(uint8_t *buffer, uint8_t size);
+  27          void UART1_RX_Decode(void);
+  28          void PageAlertDraw(void);
+  29          void PageAlertModel(CSTR text, uint32_t delay);
+  30          void UART_RX_Handler(void);
+  31          uint8_t Crc_Data = 0;
+  32          
+  33          //-----------------------------------------------------------------------------
+  34          // main() Routine
+  35          // ----------------------------------------------------------------------------
+  36          int main(void) {
+  37   1        // Call hardware initialization routine
+  38   1        enter_DefaultMode_from_RESET();
+  39   1        UART_TX_Buffer[0] = 0x8D; //0x8D
+  40   1        Lcd_Init();
+  41   1        LcdClear(0);
+  42   1        PageAlertModel("Reading...", 100);
+  43   1        PageSet(PageMenuAirStable, PV_INIT);
+  44   1        while (1) {
+  45   2          PageStack[PageStackIdx](PV_RUN);
+  46   2          if (timer_cnt - timer_uart > 3) {
+  47   3            timer_uart = timer_cnt;
+C51 COMPILER V9.56.0.0   MAINAPP                                                           10/25/2016 09:42:09 PAGE 2   
+
+  48   3            if (UART_TX_flag & READ_COMMAND) { //read command sent_flag
+  49   4              UART1_Read_Encode();
+  50   4              UART1_Write_Buffer(UART_TX_Buffer, 4);
+  51   4            } else if (UART_TX_flag & WRITE_COMMAND) { //witer command sent_flag ;
+  52   4              UART1_Write_Encode();
+  53   4              UART1_Write_Buffer(UART_TX_Buffer, 13);
+  54   4            }
+  55   3          }
+  56   2      
+  57   2          if (UART_Data_Handler_Flag) {
+  58   3            UART_Data_Handler_Flag = 0;
+  59   3            UART_RX_Handler();
+  60   3      
+  61   3          }
+  62   2      
+  63   2      // $[Generated Run-time code]
+  64   2      // [Generated Run-time code]$
+  65   2        }
+  66   1      
+  67   1      }
+  68          
+  69          void Delay_us(uint16_t count) {
+  70   1        uint16_t i, j;
+  71   1        for (i = 0; i < count; i++) {
+  72   2          for (j = 0; j < 10000; j++)
+  73   2            ;
+  74   2        }
+  75   1      }
+  76          
+  77          void UART1_Read_Encode(void) {
+  78   1        UART_TX_Buffer[1] = 0x01; //0x01
+  79   1        UART_TX_Buffer[2] = 0xFF; //0xff
+  80   1        UART_TX_Buffer[3] = UART_TX_Buffer[0] + UART_TX_Buffer[1]
+  81   1            + UART_TX_Buffer[2];
+  82   1      }
+  83          
+  84          void UART1_Write_Encode(void) {
+  85   1        UART_TX_Buffer[1] = 0x0A;
+  86   1        UART_TX_Buffer[2] = AirParameter[1] + roll_dir * 100;
+  87   1        UART_TX_Buffer[3] = AirParameter[2] + pitch_dir * 100;
+  88   1        UART_TX_Buffer[4] = AirParameter[3] + yaw_dir * 100;
+  89   1        UART_TX_Buffer[5] = AirParameter[4] + roll_dir * 100;
+  90   1        UART_TX_Buffer[6] = AirParameter[5] + pitch_dir * 100;
+  91   1        UART_TX_Buffer[7] = AirParameter[6] + yaw_dir * 100;
+  92   1        UART_TX_Buffer[8] = AirParameter[7] + 20;
+  93   1        UART_TX_Buffer[9] = AirParameter[8] + 20;
+  94   1        UART_TX_Buffer[10] = AirParameter[9] | (AirParameter[10] << 2)
+  95   1            | (AirParameter[11] << 4) | (AirParameter[13] << 6);
+  96   1        UART_TX_Buffer[11] = (AirParameter[0] << 2) | AirParameter[12];
+  97   1        UART_TX_Buffer[12] = UART_TX_Buffer[0] + UART_TX_Buffer[1]
+  98   1            + UART_TX_Buffer[2] + UART_TX_Buffer[3] + UART_TX_Buffer[4]
+  99   1            + UART_TX_Buffer[5] + UART_TX_Buffer[6] + UART_TX_Buffer[7]
+ 100   1            + UART_TX_Buffer[8] + UART_TX_Buffer[9] + UART_TX_Buffer[10]
+ 101   1            + UART_TX_Buffer[11];
+ 102   1      
+ 103   1      }
+ 104          
+ 105          void UART1_Write_Buffer(uint8_t *buffer, uint8_t size) {
+ 106   1        int i = 0;
+ 107   1        for (i = 0; i < size; i++) {
+ 108   2          SBUF1 = buffer[i];
+ 109   2          while (!(SCON1 & 0x02))
+C51 COMPILER V9.56.0.0   MAINAPP                                                           10/25/2016 09:42:09 PAGE 3   
+
+ 110   2            ;
+ 111   2          SCON1 &= ~0x02;
+ 112   2        }
+ 113   1      
+ 114   1      }
+ 115          
+ 116          void UART1_RX_Decode(void) {
+ 117   1        if (UART_RX_Buffer[2] > 100) {
+ 118   2          roll_dir = 1;
+ 119   2        } else if (UART_RX_Buffer[2] <= 100) {
+ 120   2          roll_dir = 0;
+ 121   2        }
+ 122   1      
+ 123   1        if (UART_RX_Buffer[3] > 100) {
+ 124   2          pitch_dir = 1;
+ 125   2        } else if (UART_RX_Buffer[3] <= 100) {
+ 126   2          pitch_dir = 0;
+ 127   2        }
+ 128   1      
+ 129   1        if (UART_RX_Buffer[4] > 100) {
+ 130   2          yaw_dir = 1;
+ 131   2        } else if (UART_RX_Buffer[4] <= 100) {
+ 132   2          yaw_dir = 0;
+ 133   2        }
+ 134   1      
+ 135   1        AirParameter[1] = UART_RX_Buffer[2] - roll_dir * 100; //Angel AIL
+ 136   1        AirParameter[2] = UART_RX_Buffer[3] - pitch_dir * 100; //Angel ELE
+ 137   1        AirParameter[3] = UART_RX_Buffer[4] - yaw_dir * 100; //Angel RUD
+ 138   1        AirParameter[4] = UART_RX_Buffer[5] - roll_dir * 100; //Angular Velocity AIL
+ 139   1        AirParameter[5] = UART_RX_Buffer[6] - pitch_dir * 100; //Angular Velocity ELE
+ 140   1        AirParameter[6] = UART_RX_Buffer[7] - yaw_dir * 100; //Angular Velocity RUD
+ 141   1        AirParameter[7] = UART_RX_Buffer[8] - 20;
+ 142   1        AirParameter[8] = UART_RX_Buffer[9] - 20;
+ 143   1        AirParameter[9] = UART_RX_Buffer[10] & 0x03;
+ 144   1        AirParameter[10] = (UART_RX_Buffer[10] >> 2) & 0x03;
+ 145   1        AirParameter[11] = (UART_RX_Buffer[10] >> 4) & 0x03;
+ 146   1        AirParameter[13] = (UART_RX_Buffer[10] >> 6) & 0x03;
+ 147   1        AirParameter[12] = UART_RX_Buffer[11] & 0x03;
+ 148   1        AirParameter[0] = (UART_RX_Buffer[11] >> 2) & 0x03;
+ 149   1      
+ 150   1      }
+ 151          void UART_RX_Handler(void) {
+ 152   1        int i;
+ 153   1        for (i = 0; i < UART_RX_Buffer[1] + 2; i++) {
+ 154   2          Crc_Data += UART_RX_Buffer[i];
+ 155   2        }
+ 156   1      
+ 157   1        if (Crc_Data == UART_RX_Buffer[i]) {
+ 158   2          Crc_Data = 0;
+ 159   2          if (UART_RX_Buffer[0] == 0xD8 && UART_RX_Buffer[2] == 0xCC
+ 160   2              && UART_RX_Buffer[1] == 0x01) {
+ 161   3            UART_TX_flag = 0;
+ 162   3          } else if (UART_RX_Buffer[0] == 0xD8 && UART_RX_Buffer[1] == 0x0A) {
+ 163   3            UART_TX_flag = 0;
+ 164   3            UART1_RX_Decode();
+ 165   3      
+ 166   3          }
+ 167   2        }
+ 168   1      }
+ 169          void PageAlertDraw(void) {
+ 170   1        int s, p, l;
+ 171   1        l = 6 * strlen(PageAlertText);
+C51 COMPILER V9.56.0.0   MAINAPP                                                           10/25/2016 09:42:09 PAGE 4   
+
+ 172   1        s = (LCD_W - l) / 2;
+ 173   1        p = (LCD_W + l) / 2;
+ 174   1        LcdDrawStart(0, 0, LCD_W - 1, LCD_H - 1, DRAW_NWSE);
+ 175   1      
+ 176   1        if (PageAlertDelay) {
+ 177   2          LcdDrawRect(s - 6, 9, p + 6, 56, 0);
+ 178   2          LcdDrawRect(s - 5, 10, p + 5, 55, 1);
+ 179   2          LcdDrawRect(s - 4, 11, p + 3, 53, 0);
+ 180   2          LcdDrawText(s, 18, PageAlertText);    //??????3?
+ 181   2          LcdBw = 1;
+ 182   2          LcdDrawText(LCD_W / 2 - 16, 36, " EXT ");   //????бубф?гд
+ 183   2          LcdBw = 0;
+ 184   2        }
+ 185   1      
+ 186   1        LcdDrawStop();
+ 187   1      }
+ 188          
+ 189          void PageAlertModel(CSTR text, uint32_t delay) {
+ 190   1        if (!text)
+ 191   1          return;
+ 192   1        PageAlertText = (char*) text;
+ 193   1        PageAlertDelay = delay;
+ 194   1        PageAlertDraw();
+ 195   1      
+ 196   1        UART_TX_flag = READ_COMMAND;
+ 197   1        while (!KeyTstDown(KEY_EXT) && (delay--)) {
+ 198   2          if (UART_TX_flag) {
+ 199   3            UART1_Read_Encode();
+ 200   3            UART1_Write_Buffer(UART_TX_Buffer, 4);
+ 201   3          } else {
+ 202   3            text = "Read success!";
+ 203   3            PageAlertText = (char*) text;
+ 204   3            PageAlertDraw();
+ 205   3          }
+ 206   2      
+ 207   2          if (UART_Data_Handler_Flag) {
+ 208   3            UART_Data_Handler_Flag = 0;
+ 209   3            UART_RX_Handler();
+ 210   3          }
+ 211   2      
+ 212   2          Delay_us(10);
+ 213   2        }
+ 214   1      
+ 215   1      }
+ 216          
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  4 ERROR(S)

@@ -1,0 +1,1 @@
+"..\..\SrcCode\Bsp\Core\A_StartUp.a" SET (LARGE) DEBUG PRINT(.\Listings\A_StartUp.lst) XREF OBJECT(.\Objects\A_StartUp.obj) EP

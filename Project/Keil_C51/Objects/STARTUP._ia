@@ -1,0 +1,1 @@
+"..\..\SrcCode\Bsp\Core\STARTUP.A51" SET (LARGE) DEBUG PRINT(.\Listings\STARTUP.lst) XREF OBJECT(.\Objects\STARTUP.obj) EP

@@ -1,0 +1,31 @@
+PAGEWIDTH (120) 
+PAGELENGTH (65)
+
+IXREF (					// No cross reference-report is included in the listing file.
+		NOGENERATED,	// Exclude compiler-generated symbols that begin with "?".
+		NOLIBRARIES		// Exclude symbols defined in library files.
+	  )
+	  
+PRINT (
+		  ".\Listings\Keil_Silicon.map"
+	  )
+	  
+REMOVEUNUSED 
+
+REGFILE (
+			.\Objects\Keil_Silicon.ORC
+		)
+		
+OVERLAY (
+			?PR?_USB_WRITEFIFO?EFM8_USBDEP 	! *,
+			?PR?_USBD_READ?EFM8_USBD 		! *,
+			?PR?_USBD_WRITE?EFM8_USBD 		! *,
+			?PR?_VCPXCORE_WRITE?VCPXPRESS 	! *
+		)
+		
+CLASSES (
+			XDATA (X:0x0-X:0xFFF), 
+			HDATA (X:0x0-X:0xFFF), 
+			ECODE (C:0x0100-C:0xFFFF), 
+			HCONST (C:0x0100-C:0xFFFF)
+		) 
