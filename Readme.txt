@@ -1,10 +1,3 @@
-// OSCCLK:48Mhz
-// DIVCLK:OSCCLK/1 = 48Mhz
-// SYSCLK:DIVCLK/12 = 12Mhz
-// TIM0CLK:SYSCLK/12 = 1Mhz   16Bit
-// TIM1CLK:SYSCLK/12 = 1Mhz   16Bit 
-
-
 void SendByte(uint8_t Byte){
 	SBUF1 = Byte;
 	while(!(SCON1&SCON1_TI__BMASK)) ;
